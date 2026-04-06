@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  /* Buttons / accents */
+  --color-primary: #0095f6;
+  --color-primary-hover: #1877f2;
+
+  /* States */
+  --color-like: #ed4956; /* heart red */
+}
