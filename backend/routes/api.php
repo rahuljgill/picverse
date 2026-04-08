@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::get('/test', function () {
         'timestamp' => now(),
     ]);
 });
+
+
+Route::post('/login', [AuthController::class, 'login']);

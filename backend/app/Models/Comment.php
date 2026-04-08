@@ -24,7 +24,7 @@ class Comment extends Model
         return $this->belongsTo(Post::class);
     }
 
-    // for later reply functionality
+    // for later reply functionality if you wanted to add
     public function parent()
     {
         return $this->belongsTo(Comment::class, 'parent_comment_id');
