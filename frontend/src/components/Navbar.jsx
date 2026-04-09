@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   FiHome,
   FiSearch,
@@ -12,6 +13,29 @@ import {
 function Navbar() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleLogout() {
+    try {
+      const token = localStorage.getItem("token");
+
+      await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      localStorage.removeItem("token");
+      queryClient.removeQueries(["me"]);
+
+      navigate("/");
+    }
+  }
 
   const iconStyle =
     "text-2xl cursor-pointer p-2 rounded-full flex items-center justify-center transition duration-200 ease-in-out hover:bg-black/5 hover:scale-110 active:scale-95";
@@ -107,6 +131,7 @@ function Navbar() {
                 <button
                   type="button"
                   className="block w-full px-4 py-3 text-left text-sm transition hover:bg-black/5"
+                  onClick={handleLogout}
                 >
                   Logout
                 </button>
