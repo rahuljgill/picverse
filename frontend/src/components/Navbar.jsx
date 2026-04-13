@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   FiHome,
@@ -76,9 +76,16 @@ function Navbar() {
 
           <ul className="flex items-center gap-8">
             <li>
-              <Link to="/home" className={iconStyle}>
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  `relative ${iconStyle} after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:bg-black after:transition-all after:duration-200 ${
+                    isActive ? "after:w-full" : "after:w-0"
+                  }`
+                }
+              >
                 <FiHome />
-              </Link>
+              </NavLink>
             </li>
 
             <li>
